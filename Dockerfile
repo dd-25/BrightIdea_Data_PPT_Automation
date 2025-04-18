@@ -1,4 +1,4 @@
-# Use official Python image from the Docker Hub
+# Use the official Python image from the Docker Hub
 FROM python:3.9-slim
 
 # Set environment variables
@@ -33,24 +33,15 @@ RUN apt-get update && \
     google-chrome-stable \
     && apt-get clean
 
-# Install ChromeDriver
-RUN CHROME_DRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE` && \
-    wget https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip && \
-    unzip chromedriver_linux64.zip && \
-    mv chromedriver /usr/local/bin/ && \
-    rm chromedriver_linux64.zip
+# Install Python dependencies (use the requirements.txt file)
+COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the current directory contents into the container at /app
 COPY . /app/
 
-# Install required Python packages
-RUN pip install --no-cache-dir -r requirements.txt
-
 # Expose port for the Flask app
 EXPOSE 5000
 
-# Install necessary packages for Gunicorn
-RUN pip install gunicorn
-
-# Run the Flask application using Gunicorn
+# Set the command to run the Flask app with Gunicorn
 CMD ["gunicorn", "-b", "0.0.0.0:5000", "animesh:app"]

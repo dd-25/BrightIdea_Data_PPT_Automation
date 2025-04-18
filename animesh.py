@@ -695,17 +695,20 @@
 from flask import Flask, render_template, request, send_file
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 import pandas as pd
 import time
 import requests
 import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+
+BROWSERLESS_TOKEN = os.getenv("BROWSERLESS_TOKEN")
+BROWSERLESS_URL = "https://chrome.browserless.io/webdriver"
 
 app = Flask(__name__)
 
@@ -714,15 +717,20 @@ def clean_html(raw_html):
 
 def fetch_idea_data(email, password):
     chrome_options = Options()
-    chrome_options.add_argument("--headless")  # Hide browser in headless mode
+    chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--no-sandbox")
 
-    chrome_options.binary_location = os.getenv("CHROME_BIN", "/usr/bin/google-chrome-stable")
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
-    
-    login_url = "https://henkel.brightidea.com/ct/ct_login.php?c=44544EAA-80E8-11EB-B011-0A2E49781BB2"
+    # Set Browserless token using set_capability
+    chrome_options.set_capability("browserless:token", BROWSERLESS_TOKEN)
 
+    # Connect to Browserless WebDriver
+    driver = webdriver.Remote(
+        command_executor=BROWSERLESS_URL,
+        options=chrome_options
+    )
+
+    login_url = "https://henkel.brightidea.com/ct/ct_login.php?c=44544EAA-80E8-11EB-B011-0A2E49781BB2"
     driver.get(login_url)
     time.sleep(3)
 
@@ -732,13 +740,13 @@ def fetch_idea_data(email, password):
         email_input.send_keys(email)
         password_input.send_keys(password)
         password_input.send_keys(Keys.RETURN)
-    except Exception as e:
+    except Exception:
         driver.quit()
         raise Exception("Login failed.")
 
     time.sleep(5)
 
-    # Get session cookies
+    # Extract session cookies from the browser
     selenium_cookies = driver.get_cookies()
     session = requests.Session()
     for cookie in selenium_cookies:
@@ -746,6 +754,7 @@ def fetch_idea_data(email, password):
 
     driver.quit()
 
+    # Fetch the list of ideas
     list_api_url = "https://henkel.brightidea.com/_actionItem/list?member_id=me&status=Open&with%5B%5D=step&with%5B%5D=pipeline&with%5B%5D=idea&with%5B%5D=idea.image&with%5B%5D=sender&with%5B%5D=idea.category&currentActionItems=1&page=1&page_size=50"
     list_response = session.get(list_api_url)
 
@@ -753,12 +762,7 @@ def fetch_idea_data(email, password):
         raise Exception("Failed to fetch idea list.")
 
     idea_data = list_response.json()
-    idea_ids = []
-
-    for obj in idea_data.get("actionItem_list", []):
-        idea_id = obj.get("idea", {}).get("id")
-        if idea_id:
-            idea_ids.append(idea_id)
+    idea_ids = [obj.get("idea", {}).get("id") for obj in idea_data.get("actionItem_list", []) if obj.get("idea")]
 
     results = []
     for idea_id in idea_ids:
@@ -768,8 +772,8 @@ def fetch_idea_data(email, password):
         if detail_response.status_code != 200:
             continue
 
-        data = detail_response.json()
         try:
+            data = detail_response.json()
             title = clean_html(data['idea']['title'])
             description = clean_html(data['idea']['description'])
             status = data['idea']['status']['name']
@@ -787,7 +791,7 @@ def fetch_idea_data(email, password):
                 "Status": status,
                 "Next Step": next_step
             })
-        except:
+        except Exception:
             continue
 
     if results:
