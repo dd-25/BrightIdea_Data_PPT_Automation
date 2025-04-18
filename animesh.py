@@ -718,8 +718,7 @@ def fetch_idea_data(email, password):
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--no-sandbox")
 
-    # Set binary location for Chrome (if necessary, for example on Render or other cloud services)
-    chrome_options.binary_location = "/usr/bin/google-chrome-stable"  # Adjust if necessary for your environment
+    # Remove this line: chrome_options.binary_location = "/usr/bin/google-chrome-stable" 
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
     
