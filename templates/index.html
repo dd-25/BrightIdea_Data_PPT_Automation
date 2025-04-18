@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BrightIdea Downloader</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 30px; background: #f4f4f4; }
+        form { background: white; padding: 20px; border-radius: 10px; width: 300px; margin: auto; box-shadow: 0 0 10px #ccc; }
+        input[type="text"], input[type="password"] { width: 100%; padding: 10px; margin: 10px 0; }
+        input[type="submit"] { background: #007bff; color: white; padding: 10px; border: none; width: 100%; }
+        .error { color: red; text-align: center; }
+    </style>
+</head>
+<body>
+    <form method="post">
+        <h2>Download Ideas</h2>
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+        <input type="text" name="email" placeholder="Email" required />
+        <input type="password" name="password" placeholder="Password" required />
+        <input type="submit" value="Download Excel" />
+    </form>
+</body>
+</html>
