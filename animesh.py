@@ -718,8 +718,7 @@ def fetch_idea_data(email, password):
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--no-sandbox")
 
-    # Remove this line: chrome_options.binary_location = "/usr/bin/google-chrome-stable" 
-
+    chrome_options.binary_location = os.getenv("CHROME_BIN", "/usr/bin/google-chrome-stable")
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
     
     login_url = "https://henkel.brightidea.com/ct/ct_login.php?c=44544EAA-80E8-11EB-B011-0A2E49781BB2"
