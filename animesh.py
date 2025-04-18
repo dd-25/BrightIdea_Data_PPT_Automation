@@ -700,6 +700,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 import pandas as pd
 import time
@@ -712,12 +713,16 @@ def clean_html(raw_html):
     return BeautifulSoup(raw_html, "html.parser").get_text().strip()
 
 def fetch_idea_data(email, password):
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument("--headless")  # hide browser
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")  # Hide browser in headless mode
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--no-sandbox")
 
+    # Set binary location for Chrome (if necessary, for example on Render or other cloud services)
+    chrome_options.binary_location = "/usr/bin/google-chrome-stable"  # Adjust if necessary for your environment
+
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+    
     login_url = "https://henkel.brightidea.com/ct/ct_login.php?c=44544EAA-80E8-11EB-B011-0A2E49781BB2"
 
     driver.get(login_url)
