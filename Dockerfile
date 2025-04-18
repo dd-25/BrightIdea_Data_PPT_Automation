@@ -3,6 +3,7 @@ FROM python:3.9-slim
 
 # Set environment variables
 ENV PYTHONUNBUFFERED 1
+ENV CHROME_BIN=/usr/bin/google-chrome-stable  # Default location for Linux-based systems
 
 # Set working directory
 WORKDIR /app
@@ -25,15 +26,12 @@ RUN apt-get update && \
     libxdamage1 \
     libasound2 \
     libnspr4 \
+    libgdk-pixbuf2.0-0 \
+    libatk1.0-0 \
+    libgtk-3-0 \
     libgbm1 \
-    xdg-utils \
+    google-chrome-stable \
     && apt-get clean
-
-# Install Google Chrome
-RUN curl -sSL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o google-chrome-stable_current_amd64.deb && \
-    dpkg -i google-chrome-stable_current_amd64.deb && \
-    apt-get -y -f install && \
-    rm google-chrome-stable_current_amd64.deb
 
 # Install ChromeDriver
 RUN CHROME_DRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE` && \
@@ -51,8 +49,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Expose port for the Flask app
 EXPOSE 5000
 
-# Set environment variable for the Chrome binary location
-ENV CHROME_BIN="/usr/bin/google-chrome-stable"
+# Install necessary packages for Gunicorn
+RUN pip install gunicorn
 
 # Run the Flask application using Gunicorn
 CMD ["gunicorn", "-b", "0.0.0.0:5000", "animesh:app"]
