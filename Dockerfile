@@ -23,7 +23,9 @@ RUN apt-get update && \
     libatk1.0-0 \
     libgtk-3-0 \
     libgbm1 \
-    google-chrome-stable \
+    && wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+    && apt install -y ./google-chrome-stable_current_amd64.deb \
+    && rm google-chrome-stable_current_amd64.deb \
     && apt-get clean
 COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
