@@ -755,7 +755,7 @@ def fetch_idea_data(email, password):
     driver.quit()
 
     # Fetch the list of ideas
-    list_api_url = "https://henkel.brightidea.com/_actionItem/list?member_id=me&status=Open&with%5B%5D=step&with%5B%5D=pipeline&with%5B%5D=idea&with%5B%5D=idea.image&with%5B%5D=sender&with%5B%5D=idea.category&currentActionItems=1&page=1&page_size=50"
+    list_api_url = "https://henkel.brightidea.com/_actionItem/list"
     list_response = session.get(list_api_url)
 
     if list_response.status_code != 200:
@@ -766,7 +766,7 @@ def fetch_idea_data(email, password):
 
     results = []
     for idea_id in idea_ids:
-        data_url = f"https://henkel.brightidea.com/_idea/index/{idea_id}?with=idea.related_ideas%2Cai_complete_self%2Cmember%2Csubmitter_comment_count%2Cmember.profile%2Cimage%2Ccategory%2Cstatus%2Cadditional_questions%2Cstep_ideas%2Cstep_ideas.step%2Cchip_votes%2Cteam_members%2Cowner%2Cpromotes%2Cdemotes%2Cadmin_fields%2Cinternal_comment_count%2Cattachments"
+        data_url = f"https://henkel.brightidea.com/_idea/index/{idea_id}"
         detail_response = session.get(data_url)
 
         if detail_response.status_code != 200:
