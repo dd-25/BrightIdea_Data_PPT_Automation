@@ -26,18 +26,18 @@
 
 # # # # # # # # The cookies you exported from your browser (copy and paste them as shown in your browser's cookie list)
 # # # # # # # cookies = {
-# # # # # # #     'HSID': 'AFaXaqyBp4lhdX5b0',
-# # # # # # #     'hubspotutk': 'f3fbea0536352e88112a91cd215a731c',
-# # # # # # #     'NID': '523=O59Q4T4c0hbPIDfpnVJBIiuWbk_huGLA8BlKXh82fbIBYGOpNaJJTjMDdDC_b2ZNFK7loXDnJ-odzTBF7UULRlPlWzis8ZAjI8lJH7ERPCWXvV2-rmHWCFPaMjD47ZHbt52dwesztcKCUWxSp1FDt93oJYzR2f-SWo9Iy0FTM1ht6oR4r6pt1_afqRpEKPFYHD8u4YJlSxPBUFjlIBKzd6Rcf-0DpwcO1pLs98hwdMx08Sc2CQdbK7lm0nkh7cpPD2cjaxkQGwq3tYjyko7JO9IfE4H6Cd9-ggAYO4SBRRumQeUFG46WWt6pERTLo5P9LeDh5KOrd-BTUU3AUqVOTjgVQdaxWU56qYEXEZJahtITkzJOHP05-mdrUUu24eDqCOLrlkzplDr1ByqjRb7TULBz3Dj5kCl1ch_BNNiBaN_yZ4l2lFBj2juR8ogIOW2O44tNq9wixqVGrex7d7I8B7gsRstczh2b4gNJbL2cq75T03QsOXeuhZUsggkjn4iIdpk9ddUo3Wjsv3Fjo_O39FYv8F72YKoPsUjZ55JK2eC8emzzFtdqwQhRttKFMdWdmnASSphCOupMhQSxxKB0dLjgCBMjM29bZRIIjS99hKaK_TRjrPn8GjO_RrISJTQpLe6e0jGmhL6HOclsaSJa1o4g1RTANlepiFt52mWYLmqS-QTvBQHSHemWk7UKCvbAAknkNcg9e_p9iugpIjIXNrMiVufGLspa72Fa2FQ1-r9yzJkp9PHbh6CIOJluyZQdNv2qkQgXJQ',
-# # # # # # #     'OptanonConsent': 'isGpcEnabled=0&datestamp=Mon+Feb+17+2025+21%3A01%3A23+GMT%2B0530+(India+Standard+Time)&version=202401.2.0&browserGpcFlag=0&isIABGlobal=false&hosts=&consentId=d8251231-0b8a-4a59-bee1-84ef2657e4c9&interactionCount=1&landingPath=https%3A%2F%2Fwww.brightidea.com%2F&groups=C0001%3A1%2CC0003%3A0%2CC0002%3A0%2CC0004%3A0',
-# # # # # # #     'OTZ': '8026135_34_34__34_',
-# # # # # # #     'php_cookie': 'WOs30R2lxWiTTLZC4xcKKQ%3D%3D',
-# # # # # # #     'SAPISID': 'DarAoRJhF9KxSlQj/AOFvBaqwC-M97pTZ5',
-# # # # # # #     'SEARCH_SAMESITE': 'CgQI150B',
-# # # # # # #     'SID': 'g.a000vghpXKk-fvjy8Ado_8qM_9FalNNW9w4iyhoqPf5Rz4qQxtlDjWNDBSyI0ujrmRNlCu1CMgACgYKAdYSARYSFQHGX2MiwPenaXbyT5387ZU3EJWHyhoVAUF8yKrLgXN4pUXLe3FykdlKdZ0-0076',
-# # # # # # #     'SIDCC': 'AKEyXzXZjP7jESr_Puxt7QaQYLy9L3M6RK-XnqnNY910c7cmIb-i9ZF-lIn7yrSfGKQ2ulgd9ZVk',
-# # # # # # #     'SimpleSAMLSessionID': '97485eb5105b8b20bb5032eb32a8be45',
-# # # # # # #     'SSID': 'AkSZ3I5Wwi21QliXu'
+# # # # # # #     'HSID': '',
+# # # # # # #     'hubspotutk': '',
+# # # # # # #     'NID': '',
+# # # # # # #     'OptanonConsent': '',
+# # # # # # #     'OTZ': '',
+# # # # # # #     'php_cookie': '',
+# # # # # # #     'SAPISID': '',
+# # # # # # #     'SEARCH_SAMESITE': '',
+# # # # # # #     'SID': '',
+# # # # # # #     'SIDCC': '',
+# # # # # # #     'SimpleSAMLSessionID': '',
+# # # # # # #     'SSID': ''
 # # # # # # # }
 
 # # # # # # # # The API URL you want to access
